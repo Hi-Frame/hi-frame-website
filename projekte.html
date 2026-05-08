@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projekte – Hi Frame Design Studio</title>
+  <meta name="theme-color" content="#f0ede8">
+  <link rel="canonical" href="https://www.hi-frame-design.de/projekte.html">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #f0ede8;
+      --dark: #1a1a1a;
+      --mid: #5a5a5a;
+      --light-border: #d8d5d0;
+    }
+
+    html { overflow-x: hidden; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(240,237,232,0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 72px;
+      border-bottom: 0.5px solid var(--light-border);
+    }
+
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo svg { height: 38px; width: auto; display: block; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: var(--dark);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 0.6; }
+    .nav-links a.active { border-bottom: 1.5px solid var(--dark); }
+
+    .nav-wa {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-wa:hover { background: var(--dark); color: #fff; }
+    .nav-wa svg { width: 18px; height: 18px; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(26, 26, 26, 0.9);
+      background: transparent;
+      color: var(--dark);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .nav-toggle .bars {
+      width: 18px;
+      height: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-toggle .bars span {
+      display: block;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--off-white);
+      display: none;
+      flex-direction: column;
+      padding: 1.25rem 1.25rem 2rem;
+    }
+
+    body.mobile-nav-open { overflow: hidden; }
+    body.mobile-nav-open .mobile-nav { display: flex; }
+
+    .mobile-nav-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+
+    .mobile-logo svg {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .mobile-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--light-border);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .mobile-close::before,
+    .mobile-close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 1.5px;
+      background: var(--dark);
+      transform-origin: center;
+    }
+
+    .mobile-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .mobile-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    .mobile-nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    .mobile-nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    }
+
+    .mobile-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.5rem;
+    }
+
+    .mobile-wa a {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid var(--light-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .mobile-wa svg { width: 22px; height: 22px; }
+
+    /* ── PAGE ── */
+    main { padding: 7.5rem 2rem 6rem; }
+    .container-wide { max-width: 1200px; margin: 0 auto; }
+
+    .page-header {
+      text-align: center;
+      padding-top: 1.25rem;
+      margin-bottom: 4.5rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.1rem;
+    }
+
+    .page-header p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--mid);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .projects {
+      display: grid;
+      gap: 3.2rem;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      border-top: 0.5px solid var(--light-border);
+      padding-top: 3.2rem;
+    }
+    .project:first-child { border-top: none; padding-top: 0; }
+
+    .project-media {
+      background: var(--off-white);
+      border: 0.5px solid var(--light-border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      min-height: 280px;
+    }
+
+    .project-media.project-media--video {
+      background: #000;
+    }
+
+    .project-media--video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      transition: opacity 0.2s ease;
+    }
+
+    .project-media--video.is-playing .video-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .video-play {
+      width: 92px;
+      height: 92px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255, 255, 255, 0.72);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .video-play:hover {
+      background: rgba(255, 255, 255, 0.82);
+      transform: scale(1.03);
+    }
+
+    .video-play:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.95);
+      outline-offset: 4px;
+    }
+
+    .video-play svg {
+      width: 46px;
+      height: 46px;
+      fill: rgba(0, 0, 0, 0.78);
+      transform: translateX(2px);
+    }
+
+    .project-media button[data-full] {
+      all: unset;
+      display: block;
+      cursor: zoom-in;
+      width: 100%;
+      height: 100%;
+    }
+
+    .project-media button[data-full] img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.98);
+    }
+
+    .project-meta h2 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      color: var(--mid);
+    }
+
+    .meta-block { margin-bottom: 1.4rem; }
+    .meta-block:last-child { margin-bottom: 0; }
+
+    .meta-label {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .meta-text, .meta-list {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--mid);
+    }
+
+    .meta-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .meta-list li {
+      position: relative;
+      padding-left: 0.9rem;
+    }
+
+    .meta-list li::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      color: var(--mid);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.86);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    body.lightbox-open { overflow: hidden; }
+    body.lightbox-open .lightbox { display: flex; }
+
+    .lightbox-inner {
+      width: min(1100px, 100%);
+      max-height: min(86vh, 900px);
+      display: grid;
+      gap: 1rem;
+    }
+
+    .lightbox-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: rgba(255,255,255,0.86);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .lightbox-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.45);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 1.5px;
+      background: rgba(255,255,255,0.9);
+      transform-origin: center;
+    }
+    .lightbox-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .lightbox-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    .lightbox-img {
+      width: 100%;
+      height: 100%;
+      max-height: min(80vh, 820px);
+      object-fit: contain;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      border-top: 0.5px solid var(--light-border);
+    }
+
+    footer a {
+      font-size: 13px;
+      color: var(--mid);
+      text-decoration: underline;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .project { grid-template-columns: 1fr; gap: 1.6rem; }
+      .project-meta h2 { margin-bottom: 1.1rem; }
+      /* Mobile/tablet: avoid fixed min-height causing empty bars under images */
+      .project-media { min-height: 0; }
+      .project-media button[data-full] { height: auto; }
+      .project-media button[data-full] img { height: auto; }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .page-header { margin-bottom: 3.2rem; }
+    }
+
+    /* Keep mobile header on touch devices (even when zoomed-out). */
+    @media (hover: none) and (pointer: coarse) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html#home" class="logo" aria-label="Hi Frame Design Studio">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+        <defs>
+          <style>
+            .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+            .cls-2{letter-spacing:.13em}
+            .cls-3{stroke-linecap:round}
+            .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+            .cls-5,.cls-6{letter-spacing:.12em}
+          </style>
+        </defs>
+        <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+        <g>
+          <g>
+            <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+            <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+          </g>
+          <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+          <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+          <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+          <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+          <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+          <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+        </g>
+        <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+        <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+        <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+        <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+        <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+        <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+        <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+      </svg>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a class="active" href="projekte.html">Projekte</a></li>
+      <li><a href="leistung.html">Leistungen</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+
+    <a href="https://wa.me/491601443330?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" class="nav-wa" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-controls="mobileNav" aria-expanded="false">
+      <span class="bars" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <div class="mobile-nav-top">
+      <a href="index.html#home" class="logo mobile-logo" aria-label="Hi Frame Design Studio">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+          <defs>
+            <style>
+              .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+              .cls-2{letter-spacing:.13em}
+              .cls-3{stroke-linecap:round}
+              .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+              .cls-5,.cls-6{letter-spacing:.12em}
+            </style>
+          </defs>
+          <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+          <g>
+            <g>
+              <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+              <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+            </g>
+            <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+            <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+            <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+            <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+            <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+            <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+          </g>
+          <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+          <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+          <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+          <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+          <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+          <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+          <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+        </svg>
+      </a>
+      <button class="mobile-close" type="button" aria-label="Menü schließen"></button>
+    </div>
+
+    <ul class="mobile-nav-links" aria-label="Mobile Navigation">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="projekte.html">Projekte</a></li>
+      <li><a href="leistung.html">Leistungen</a></li>
+    </ul>
+
+    <div class="mobile-wa" aria-label="WhatsApp Kontakt">
+      <a href="https://wa.me/491601443330?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <div class="container-wide">
+      <header class="page-header">
+        <h1>PROJEKTE</h1>
+        <p>Ein kleiner Auszug an ausgewählten Kundenprojekten.</p>
+      </header>
+
+      <section class="projects" aria-label="Projektübersicht">
+        <article class="project">
+          <div class="project-media">
+            <button type="button" data-full="assets/01.png" data-title="Projekt 01" aria-label="Projekt 01 groß anzeigen">
+              <img src="assets/01.png" alt="Projekt 01">
+            </button>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Produktdesign-Broschüre für die Agentur Tricon AG mit medizinischen Produktbeispielen aus den letzten 10 Jahren (Auszug).</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>Design</li>
+                <li>Layout</li>
+                <li>Druck</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media">
+            <button type="button" data-full="assets/02.png" data-title="Projekt 02" aria-label="Projekt 02 groß anzeigen">
+              <img src="assets/02.png" alt="Projekt 02">
+            </button>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Entwicklung und Design einer Saug- und Spülpumpe für endoskopische Eingriffe (Urologie, Hysteroskopie u. a.). Gestaltung von Hard- und Software. Kunde: RZ Medizintechnik (Auszug).</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>Produktdesign (Formentwicklung | CAD | Renderings)</li>
+                <li>UX + UI Design</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media">
+            <button type="button" data-full="assets/03.png" data-title="Projekt 03" aria-label="Projekt 03 groß anzeigen">
+              <img src="assets/03.png" alt="Projekt 03">
+            </button>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Entwicklung und Design einer neuen Benutzerführung (User Interface) für eine Pumpe von KNF (Auszug).</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>UX + UI Design</li>
+                <li>Animation</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media">
+            <button type="button" data-full="assets/04.png" data-title="Projekt 04" aria-label="Projekt 04 groß anzeigen">
+              <img src="assets/04.png" alt="Projekt 04">
+            </button>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Gestaltung von Informationsbroschüren und Ablaufplänen für REBA Elektrotechnik &amp; Solar Energie GmbH (Auszug).</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>Grafik &amp; Layoutdesign</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-media project-media--video" data-video-wrap>
+            <video preload="metadata" playsinline>
+              <source src="koelis-website-cut.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay" aria-hidden="false">
+              <button class="video-play" type="button" data-video-play aria-label="Video abspielen">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                  <path d="M22 18v28l28-14-28-14z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Entwicklung und Design der nächsten Generation eines bildgebenden Biopsie-Ultraschallgeräts zur Lokalisierung von Prostataläsionen. Kunde: Koelis (Auszug).</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>Produktdesign (Formentwicklung | CAD | Renderings)</li>
+                <li>Animation</li>
+                <li>Modellbau</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Bildanzeige">
+      <div class="lightbox-top">
+        <div id="lightboxTitle">Bild</div>
+        <button class="lightbox-close" type="button" aria-label="Schließen"></button>
+      </div>
+      <img class="lightbox-img" id="lightboxImg" alt="">
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="impressum.html">Impressum</a>
+    <a href="cookies.html">Cookie-Einstellungen</a>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileClose = document.querySelector('.mobile-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+
+    function openMobileNav() {
+      document.body.classList.add('mobile-nav-open');
+      mobileNav.hidden = false;
+      navToggle?.setAttribute('aria-expanded', 'true');
+      mobileClose?.focus();
+    }
+
+    function closeMobileNav() {
+      document.body.classList.remove('mobile-nav-open');
+      mobileNav.hidden = true;
+      navToggle?.setAttribute('aria-expanded', 'false');
+      navToggle?.focus();
+    }
+
+    navToggle?.addEventListener('click', () => {
+      const isOpen = document.body.classList.contains('mobile-nav-open');
+      if (isOpen) closeMobileNav(); else openMobileNav();
+    });
+    mobileClose?.addEventListener('click', closeMobileNav);
+    mobileNavLinks.forEach(a => a.addEventListener('click', closeMobileNav));
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const triggers = document.querySelectorAll('[data-full]');
+
+    // Video play overlay (Koelis)
+    document.querySelectorAll('[data-video-wrap]').forEach((wrap) => {
+      const video = wrap.querySelector('video');
+      const playBtn = wrap.querySelector('[data-video-play]');
+      if (!video || !playBtn) return;
+
+      function setPlaying(isPlaying) {
+        wrap.classList.toggle('is-playing', isPlaying);
+        wrap.querySelector('.video-overlay')?.setAttribute('aria-hidden', String(isPlaying));
+      }
+
+      playBtn.addEventListener('click', async () => {
+        try {
+          video.controls = true;
+          await video.play();
+          setPlaying(true);
+        } catch (e) {
+          // Autoplay/permissions may block play; keep overlay visible.
+        }
+      });
+
+      video.addEventListener('pause', () => {
+        if (!video.ended) setPlaying(false);
+      });
+
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        setPlaying(false);
+      });
+    });
+
+    function openLightbox(src, title) {
+      lightboxImg.src = src;
+      lightboxImg.alt = title || 'Bild';
+      lightboxTitle.textContent = title || 'Bild';
+      document.body.classList.add('lightbox-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightboxClose?.focus();
+    }
+
+    function closeLightbox() {
+      document.body.classList.remove('lightbox-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    triggers.forEach(btn => {
+      btn.addEventListener('click', () => openLightbox(btn.dataset.full, btn.dataset.title));
+    });
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.body.classList.contains('mobile-nav-open')) closeMobileNav();
+        if (document.body.classList.contains('lightbox-open')) closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – Hi Frame Design Studio</title>
+  <link rel="canonical" href="https://www.hi-frame-design.de/kontakt.html">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #f0ede8;
+      --dark: #1a1a1a;
+      --mid: #5a5a5a;
+      --light-border: #d8d5d0;
+    }
+
+    html { overflow-x: hidden; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(240,237,232,0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 72px;
+      border-bottom: 0.5px solid var(--light-border);
+    }
+
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo svg { height: 38px; width: auto; display: block; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: var(--dark);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 0.6; }
+    .nav-links a.active { border-bottom: 1.5px solid var(--dark); }
+
+    .nav-wa {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-wa:hover { background: var(--dark); color: #fff; }
+    .nav-wa svg { width: 18px; height: 18px; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(26, 26, 26, 0.9);
+      background: transparent;
+      color: var(--dark);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .nav-toggle .bars {
+      width: 18px;
+      height: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-toggle .bars span {
+      display: block;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--off-white);
+      display: none;
+      flex-direction: column;
+      padding: 1.25rem 1.25rem 2rem;
+    }
+
+    body.mobile-nav-open { overflow: hidden; }
+    body.mobile-nav-open .mobile-nav { display: flex; }
+
+    .mobile-nav-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+
+    .mobile-logo svg {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .mobile-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--light-border);
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .mobile-close::before,
+    .mobile-close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 1.5px;
+      background: var(--dark);
+      transform-origin: center;
+    }
+
+    .mobile-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .mobile-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    .mobile-nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+
+    .mobile-nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    }
+
+    .mobile-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 0.5rem;
+    }
+
+    .mobile-wa a {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid var(--light-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .mobile-wa svg { width: 22px; height: 22px; }
+
+    /* ── WHATSAPP BAR ── */
+    .wa-section {
+      background: var(--off-white);
+      padding: 5rem 2rem 3rem;
+      margin-top: 72px;
+    }
+
+    .wa-inner { max-width: 900px; margin: 0 auto; }
+
+    .wa-inner h3 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .wa-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 1.1rem 1.5rem;
+      color: #fff;
+    }
+
+    .wa-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+
+    .wa-bar-left svg { width: 22px; height: 22px; }
+
+    .wa-bar a {
+      display: inline-block;
+      padding: 0.65rem 1.8rem;
+      background: var(--off-white);
+      color: var(--dark);
+      border-radius: 999px;
+      font-size: 14px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+      white-space: nowrap;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .wa-bar a:hover { background: #fff; }
+
+    /* ── KONTAKT SEKTION ── */
+    .kontakt-section {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .kontakt-section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .kontakt-foto {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      display: block;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    .kontakt-text {
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--mid);
+      max-width: 600px;
+      margin: 0 auto 5rem;
+    }
+
+    /* ── FORMULAR ── */
+    .form-section {
+      padding: 0 2rem 6rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .form-section h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: var(--mid);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      padding: 0.7rem 0.9rem;
+      border: 0.5px solid var(--light-border);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--dark);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 160px;
+    }
+
+    .form-full {
+      grid-column: 1 / -1;
+    }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+
+    .form-consent input[type="checkbox"] {
+      margin-top: 3px;
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      accent-color: var(--dark);
+    }
+
+    .form-consent a {
+      color: var(--dark);
+    }
+
+    .form-datenschutz {
+      font-size: 11px;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-datenschutz a { color: var(--dark); }
+
+    .btn-submit {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.8; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      border-top: 0.5px solid var(--light-border);
+    }
+
+    footer a {
+      font-size: 13px;
+      color: var(--mid);
+      text-decoration: underline;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Keep mobile header on touch devices (even when zoomed-out). */
+    @media (hover: none) and (pointer: coarse) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html#home" class="logo" aria-label="Hi Frame Design Studio">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+        <defs>
+          <style>
+            .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+            .cls-2{letter-spacing:.13em}
+            .cls-3{stroke-linecap:round}
+            .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+            .cls-5,.cls-6{letter-spacing:.12em}
+          </style>
+        </defs>
+        <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+        <g>
+          <g>
+            <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+            <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+          </g>
+          <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+          <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+          <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+          <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+          <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+          <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+        </g>
+        <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+        <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+        <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+        <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+        <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+        <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+        <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="projekte.html">Projekte</a></li>
+      <li><a href="leistung.html">Leistungen</a></li>
+      
+      <li><a class="active" href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <a href="https://wa.me/491601443330?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" class="nav-wa" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-controls="mobileNav" aria-expanded="false">
+      <span class="bars" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <div class="mobile-nav-top">
+      <a href="index.html#home" class="logo mobile-logo" aria-label="Hi Frame Design Studio">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+          <defs>
+            <style>
+              .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+              .cls-2{letter-spacing:.13em}
+              .cls-3{stroke-linecap:round}
+              .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+              .cls-5,.cls-6{letter-spacing:.12em}
+            </style>
+          </defs>
+          <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+          <g>
+            <g>
+              <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+              <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+            </g>
+            <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+            <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+            <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+            <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+            <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+            <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+          </g>
+          <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+          <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+          <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+          <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+          <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+          <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+          <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+        </svg>
+      </a>
+      <button class="mobile-close" type="button" aria-label="Menü schließen"></button>
+    </div>
+
+    <ul class="mobile-nav-links" aria-label="Mobile Navigation">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="projekte.html">Projekte</a></li>
+      <li><a href="leistung.html">Leistungen</a></li>
+      
+    </ul>
+
+    <div class="mobile-wa" aria-label="WhatsApp Kontakt">
+      <a href="https://wa.me/491601443330?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.570-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- WHATSAPP BAR -->
+  <div class="wa-section">
+    <div class="wa-inner">
+      <h3>Hi-Frame-Design</h3>
+      <div class="wa-bar">
+        <div class="wa-bar-left">
+          <svg viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Kontakt per WhatsApp
+        </div>
+        <a href="https://wa.me/491601443330?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" target="_blank">Nachricht schreiben</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KONTAKT BILD & TEXT -->
+  <div class="kontakt-section">
+    <h2>Kontakt</h2>
+    <img src="kontakt-foto.png" alt="Kontakt Hi-Frame-Design" class="kontakt-foto">
+    <p class="kontakt-text">
+      Wir alle haben unsere Stärken. Wenn dir aber doch mal das Wissen oder die Erfahrung fehlen sollten, kein Problem – ich bin immer offen für neue Herausforderungen! Nimm gerne Kontakt zu mir auf – und wir schauen gemeinsam, wie ich dich unterstützen kann.
+    </p>
+  </div>
+
+  <!-- KONTAKTFORMULAR -->
+  <div class="form-section">
+    <h2>Möchtest du mehr wissen?</h2>
+    <form action="https://formsubmit.co/hi-frame-design@web.de" method="POST">
+      <!-- Formsubmit Einstellungen -->
+      <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Hi-Frame-Design">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://www.hi-frame-design.de/danke.html">
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail-Adresse*</label>
+          <input type="email" id="email" name="email" required placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="telefon">Telefonnummer</label>
+          <input type="tel" id="telefon" name="telefon" placeholder="">
+        </div>
+        <div class="form-group form-full">
+          <label for="nachricht">Nachricht*</label>
+          <textarea id="nachricht" name="nachricht" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-consent">
+        <input type="checkbox" id="datenschutz" name="datenschutz" required>
+        <label for="datenschutz">
+          Durch Klicken des „Abschicken"-Buttons stimme ich zu, dass die im Formular eingegebenen personenbezogenen Daten zur Bearbeitung der Anfrage und der personalisierten Beratung verarbeitet werden. Meine Einwilligungen kann ich jederzeit mit Wirkung für die Zukunft postalisch oder per E-Mail widerrufen.
+        </label>
+      </div>
+
+      <p class="form-datenschutz">Es gilt unsere <a href="#">Datenschutzerklärung</a>.</p>
+
+      <button type="submit" class="btn-submit">Abschicken</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="impressum.html">Impressum</a>
+    
+    <a href="cookies.html">Cookie-Einstellungen</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileClose = document.querySelector('.mobile-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+
+    function openMobileNav() {
+      document.body.classList.add('mobile-nav-open');
+      mobileNav.hidden = false;
+      navToggle?.setAttribute('aria-expanded', 'true');
+      mobileClose?.focus();
+    }
+
+    function closeMobileNav() {
+      document.body.classList.remove('mobile-nav-open');
+      mobileNav.hidden = true;
+      navToggle?.setAttribute('aria-expanded', 'false');
+      navToggle?.focus();
+    }
+
+    navToggle?.addEventListener('click', () => {
+      const isOpen = document.body.classList.contains('mobile-nav-open');
+      if (isOpen) closeMobileNav(); else openMobileNav();
+    });
+
+    mobileClose?.addEventListener('click', closeMobileNav);
+    mobileNavLinks.forEach(a => a.addEventListener('click', closeMobileNav));
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('mobile-nav-open')) {
+        closeMobileNav();
+      }
+    });
+  </script>
+</body>
+</html>
