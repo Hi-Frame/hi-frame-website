@@ -3,30 +3,688 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Cookie-Einstellungen – Hi Frame Design Studio</title>
   <link rel="canonical" href="https://www.hi-frame-design.de/cookies.html">
-
-  <!-- FAVICON (SVG muss VOR ICO stehen) -->
+  <!-- FAVICON -->
   <link rel="icon" type="image/svg+xml" href="/logo-Tab.svg">
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#ffffff">
-
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-
   <style>
-    /* (CSS unverändert gekürzt für Test) */
-    body { font-family: 'Montserrat', sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --off-white: #f0ede8;
+      --dark: #1a1a1a;
+      --mid: #5a5a5a;
+      --light-border: #d8d5d0;
+    }
+
+    html { overflow-x: hidden; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(240,237,232,0.92);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 72px;
+      border-bottom: 0.5px solid var(--light-border);
+    }
+
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo svg { height: 38px; width: auto; display: block; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: var(--dark);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 0.6; }
+
+    .nav-wa {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-wa:hover { background: var(--dark); color: #fff; }
+    .nav-wa svg { width: 18px; height: 18px; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(26, 26, 26, 0.9);
+      background: transparent;
+      color: var(--dark);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .nav-toggle .bars {
+      width: 18px; height: 14px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .nav-toggle .bars span {
+      display: block; height: 1.5px;
+      background: currentColor; border-radius: 2px;
+    }
+
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--off-white);
+      display: none; flex-direction: column;
+      padding: 1.25rem 1.25rem 2rem;
+    }
+    body.mobile-nav-open { overflow: hidden; }
+    body.mobile-nav-open .mobile-nav { display: flex; }
+
+    .mobile-nav-top {
+      display: flex; align-items: center;
+      justify-content: space-between; min-height: 72px;
+    }
+    .mobile-logo svg { height: 42px; width: auto; display: block; }
+
+    .mobile-close {
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--light-border);
+      background: transparent; cursor: pointer; position: relative;
+    }
+    .mobile-close::before, .mobile-close::after {
+      content: ""; position: absolute;
+      top: 50%; left: 50%;
+      width: 18px; height: 1.5px;
+      background: var(--dark); transform-origin: center;
+    }
+    .mobile-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .mobile-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+    .mobile-nav-links {
+      list-style: none; margin: 0; padding: 0;
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.8rem;
+    }
+    .mobile-nav-links a {
+      color: var(--dark); text-decoration: none;
+      font-size: 18px; letter-spacing: 0.02em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    }
+
+    .mobile-wa {
+      display: flex; align-items: center;
+      justify-content: center; padding-top: 0.5rem;
+    }
+    .mobile-wa a {
+      width: 46px; height: 46px; border-radius: 999px;
+      border: 1px solid var(--light-border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dark); text-decoration: none;
+    }
+    .mobile-wa svg { width: 22px; height: 22px; }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+    }
+
+    .page-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+
+    main h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .intro {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--mid);
+      margin-bottom: 3rem;
+      max-width: 600px;
+    }
+
+    /* ── COOKIE CATEGORIES ── */
+    .cookie-category {
+      border: 0.5px solid var(--light-border);
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .category-info { flex: 1; }
+
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-required {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--off-white);
+      color: var(--mid);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 0.5px solid var(--light-border);
+    }
+
+    .category-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+
+    /* ── TOGGLE SWITCH ── */
+    .toggle-wrap {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      padding-top: 2px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0; height: 0;
+      position: absolute;
+    }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: var(--light-border);
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    .toggle input:checked + .toggle-track { background: var(--dark); }
+    .toggle input:disabled + .toggle-track { cursor: not-allowed; opacity: 0.55; }
+
+    .toggle-track::after {
+      content: "";
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.25s;
+    }
+
+    .toggle input:checked + .toggle-track::after {
+      transform: translateX(20px);
+    }
+
+    .toggle-label {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ── SAVE BUTTON AREA ── */
+    .save-area {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-save {
+      display: inline-block;
+      padding: 0.75rem 2.2rem;
+      border: 1px solid var(--dark);
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: var(--dark);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-save:hover { background: #333; border-color: #333; }
+
+    .btn-all {
+      display: inline-block;
+      padding: 0.75rem 2.2rem;
+      border: 1px solid var(--dark);
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--dark);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-all:hover { background: var(--dark); color: #fff; }
+
+    .save-confirm {
+      font-size: 13px;
+      color: var(--mid);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .save-confirm.visible { opacity: 1; }
+
+    /* ── INFO BLOCK ── */
+    .cookie-info {
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 0.5px solid var(--light-border);
+    }
+
+    .cookie-info h2 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .cookie-info p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--mid);
+      margin-bottom: 0.9rem;
+    }
+
+    .cookie-info p:last-child { margin-bottom: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      border-top: 0.5px solid var(--light-border);
+    }
+    footer a {
+      font-size: 13px;
+      color: var(--mid);
+      text-decoration: underline;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .cookie-category { flex-direction: column; gap: 1rem; }
+      .toggle-wrap { flex-direction: row; align-items: center; }
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      nav {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+      .logo svg { height: 46px; }
+      .nav-links, .nav-wa { display: none; }
+      .nav-toggle { display: inline-flex; }
+    }
   </style>
 </head>
 <body>
 
-  <main>
-    <h1>Cookie-Einstellungen</h1>
-    <p>Testseite für korrektes Dark/Light Mode Favicon.</p>
-  </main>
+<!-- NAV -->
+<nav>
+  <a href="index.html#home" class="logo" aria-label="Hi Frame Design Studio">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+      <defs>
+        <style>
+          .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+          .cls-2{letter-spacing:.13em}
+          .cls-3{stroke-linecap:round}
+          .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+          .cls-5,.cls-6{letter-spacing:.12em}
+        </style>
+      </defs>
+      <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+      <g>
+        <g>
+          <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+          <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+        </g>
+        <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+        <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+        <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+        <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+        <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+        <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+      </g>
+      <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+      <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+      <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+      <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+      <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+      <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+      <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="projekte.html">Projekte</a></li>
+    <li><a href="leistung.html">Leistungen</a></li>
+    
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <a href="https://wa.me/4915678330283?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" class="nav-wa" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+  <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-controls="mobileNav" aria-expanded="false">
+    <span class="bars" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+</nav>
 
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav" id="mobileNav" hidden>
+  <div class="mobile-nav-top">
+    <a href="index.html#home" class="logo mobile-logo" aria-label="Hi Frame Design Studio">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1746 567" role="img" aria-label="Hi Frame Design Studio">
+        <defs>
+          <style>
+            .cls-1{font-family:Montserrat, sans-serif;font-size:109px;font-weight:300}
+            .cls-2{letter-spacing:.13em}
+            .cls-3{stroke-linecap:round}
+            .cls-3,.cls-4{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:10px}
+            .cls-5,.cls-6{letter-spacing:.12em}
+          </style>
+        </defs>
+        <path d="M275.72,10c35.88,0,70.67,7.02,103.43,20.88,31.64,13.38,60.06,32.54,84.46,56.95,24.41,24.41,43.57,52.82,56.95,84.46,13.85,32.75,20.88,67.55,20.88,103.43s-7.02,70.67-20.88,103.43c-13.38,31.64-32.54,60.06-56.95,84.46-24.41,24.41-52.82,43.57-84.46,56.95-32.75,13.85-67.55,20.88-103.43,20.88s-70.67-7.02-103.43-20.88c-31.64-13.38-60.06-32.54-84.46-56.95-24.41-24.41-43.57-52.82-56.95-84.46-13.85-32.75-20.88-67.55-20.88-103.43s7.02-70.67,20.88-103.43c13.38-31.64,32.54-60.06,56.95-84.46s52.82-43.57,84.46-56.95c32.75-13.85,67.55-20.88,103.43-20.88M275.72,0C123.44,0,0,123.44,0,275.72s123.44,275.72,275.72,275.72,275.72-123.44,275.72-275.72S427.99,0,275.72,0h0Z"/>
+        <g>
+          <g>
+            <polygon points="624.72 276.08 633.79 276.08 633.79 216.8 633.79 208.79 633.79 151.47 624.72 151.47 624.72 276.08"/>
+            <path d="M717.1,151.47v57.32h-61.03c-2.21,0-4,1.79-4,4s1.79,4,4,4h0s61.03,0,61.03,0v59.27h9.08v-124.6h-9.08Z"/>
+          </g>
+          <path d="M792.75,151.47h9.08v124.6h-9.08v-124.6Z"/>
+          <path d="M946.36,159.66v53.22h66.4v8.19h-66.4v55h-9.08v-124.6h83.3v8.19h-74.23Z"/>
+          <path d="M1159.25,276.08l-29.73-41.65c-4.39.6-8.43.89-12.1.89h-35.6v40.76h-9.08v-124.6h44.68c15.66,0,27.95,3.71,36.85,11.12,8.9,7.42,13.35,17.71,13.35,30.88,0,9.85-2.52,18.13-7.56,24.83-5.05,6.71-12.25,11.42-21.63,14.15l31.15,43.61h-10.32ZM1117.42,227.3c13.29,0,23.44-2.94,30.44-8.81,7-5.87,10.5-14.21,10.5-25.01s-3.5-19.14-10.5-25.01c-7-5.87-17.15-8.81-30.44-8.81h-35.6v67.64h35.6Z"/>
+          <path d="M1301.11,241.01h-72.27l-15.84,35.07h-9.79l57.32-124.6h9.08l57.32,124.6h-9.79l-16.02-35.07ZM1297.73,233.35l-32.75-71.91-32.57,71.91h65.33Z"/>
+          <path d="M1490.5,276.08l-.18-106.62-52.15,90.07h-4.45l-52.15-89.71v106.27h-8.9v-124.6h7.65l55.71,96.3,55.71-96.3h7.48l.18,124.6h-8.9Z"/>
+          <path d="M1651.94,267.89v8.19h-85.97v-124.6h83.3v8.19h-74.23v49.13h66.39v8.01h-66.39v51.09h76.9Z"/>
+        </g>
+        <text class="cls-1" transform="translate(612 395.88)"><tspan class="cls-2" x="0" y="0">DESIGN </tspan><tspan class="cls-6" x="561.67" y="0">S</tspan><tspan class="cls-5" x="641.13" y="0">T</tspan><tspan class="cls-2" x="715.14" y="0">UDIO</tspan></text>
+        <line class="cls-4" x1="114.17" y1="151.56" x2="114.17" y2="396.74"/>
+        <line class="cls-4" x1="276.93" y1="290.64" x2="276.93" y2="396.74"/>
+        <polyline class="cls-4" points="276.93 151.56 276.93 267.12 276.93 277.67"/>
+        <line class="cls-4" x1="313.79" y1="290.64" x2="313.79" y2="396.74"/>
+        <polyline class="cls-4" points="441.44 156.77 313.79 156.85 313.79 274.15"/>
+        <line class="cls-3" x1="161.62" y1="273.95" x2="429.12" y2="273.95"/>
+      </svg>
+    </a>
+    <button class="mobile-close" type="button" aria-label="Menü schließen"></button>
+  </div>
+  <ul class="mobile-nav-links" aria-label="Mobile Navigation">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+    <li><a href="projekte.html">Projekte</a></li>
+    <li><a href="leistung.html">Leistungen</a></li>
+    
+  </ul>
+  <div class="mobile-wa" aria-label="WhatsApp Kontakt">
+    <a href="https://wa.me/4915678330283?text=Hi%20Bj%C3%B6rn%2C%20ich%20interessiere%20mich%20f%C3%BCr%3A" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <p class="page-label">Datenschutz &amp; Privatsphäre</p>
+  <h1>Cookie-Einstellungen</h1>
+  <p class="intro">
+    Hier kannst du jederzeit festlegen, welche Cookies diese Website setzen darf.
+    Notwendige Cookies sind für den Betrieb der Seite erforderlich und können nicht deaktiviert werden.
+    Alle anderen Kategorien sind optional – deine Wahl wird gespeichert und gilt für alle Seiten dieser Website.
+  </p>
+
+  <!-- CATEGORY 1: Notwendig -->
+  <div class="cookie-category">
+    <div class="category-info">
+      <div class="category-title">
+        Notwendige Cookies
+        <span class="badge-required">Erforderlich</span>
+      </div>
+      <p class="category-desc">
+        Diese Cookies sind für die grundlegende Funktionsfähigkeit der Website unverzichtbar.
+        Sie speichern z. B. deine Cookie-Einstellungen selbst. Sie können nicht deaktiviert werden.
+      </p>
+    </div>
+    <div class="toggle-wrap">
+      <label class="toggle">
+        <input type="checkbox" id="toggle-essential" checked disabled>
+        <span class="toggle-track"></span>
+      </label>
+      <span class="toggle-label">Aktiv</span>
+    </div>
+  </div>
+
+  <!-- CATEGORY 2: Analyse -->
+  <div class="cookie-category">
+    <div class="category-info">
+      <div class="category-title">Analyse &amp; Statistik</div>
+      <p class="category-desc">
+        Diese Website nutzt Umami – einen datenschutzfreundlichen Analysedienst, der auf unserem eigenen Server
+        gehostet wird. Es werden keine personenbezogenen Daten erfasst, keine IP-Adressen gespeichert und
+        keine Cookies im Browser gesetzt. Eine Identifizierung einzelner Personen ist nicht möglich.
+      </p>
+    </div>
+    <div class="toggle-wrap">
+      <label class="toggle">
+        <input type="checkbox" id="toggle-analytics">
+        <span class="toggle-track"></span>
+      </label>
+      <span class="toggle-label" id="label-analytics">Inaktiv</span>
+    </div>
+  </div>
+
+  <!-- CATEGORY 3: Marketing -->
+  <div class="cookie-category">
+    <div class="category-info">
+      <div class="category-title">Marketing &amp; externe Dienste</div>
+      <p class="category-desc">
+        Diese Cookies ermöglichen das Einbinden von Inhalten externer Anbieter (z. B. eingebettete Videos,
+        Social-Media-Widgets). Dabei können Daten an Drittanbieter übertragen werden.
+        Aktuell werden keine solchen Dienste verwendet.
+      </p>
+    </div>
+    <div class="toggle-wrap">
+      <label class="toggle">
+        <input type="checkbox" id="toggle-marketing">
+        <span class="toggle-track"></span>
+      </label>
+      <span class="toggle-label" id="label-marketing">Inaktiv</span>
+    </div>
+  </div>
+
+  <!-- SAVE AREA -->
+  <div class="save-area">
+    <button class="btn-save" onclick="saveSettings()">Einstellungen speichern</button>
+    <button class="btn-all" onclick="acceptAll()">Alle akzeptieren</button>
+    <span class="save-confirm" id="save-confirm">
+      ✓ &nbsp;Gespeichert
+    </span>
+  </div>
+
+  <!-- INFO TEXT -->
+  <div class="cookie-info">
+    <h2>Was sind Cookies?</h2>
+    <p>
+      Cookies sind kleine Textdateien, die von einer Website in deinem Browser gespeichert werden.
+      Sie ermöglichen es, bestimmte Einstellungen oder Informationen zwischen Seitenbesuchen zu erhalten –
+      zum Beispiel deine Sprachpräferenz oder eben diese Cookie-Einstellungen.
+    </p>
+    <p>
+      Wir setzen nur Cookies ein, die für den Betrieb der Seite notwendig sind oder für die du
+      ausdrücklich zugestimmt hast. Deine Einstellungen kannst du jederzeit auf dieser Seite ändern.
+    </p>
+    <p>
+      Weitere Informationen zur Datenverarbeitung findest du in unserem
+      <a href="impressum.html" style="color: var(--dark); text-underline-offset: 2px;">Impressum</a>.
+    </p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <a href="impressum.html">Impressum</a>
+  
+  <a href="cookies.html">Cookie-Einstellungen</a>
+</footer>
+
+<script>
+  // ── Einstellungen laden ──
+  (function() {
+    const saved = localStorage.getItem('cookie-consent-detail');
+    if (saved) {
+      try {
+        const prefs = JSON.parse(saved);
+        const analytics = document.getElementById('toggle-analytics');
+        const marketing = document.getElementById('toggle-marketing');
+        if (analytics) analytics.checked = !!prefs.analytics;
+        if (marketing) marketing.checked = !!prefs.marketing;
+        updateLabels();
+      } catch(e) {}
+    } else {
+      // Altes einfaches Flag auslesen (aus dem Banner)
+      const old = localStorage.getItem('cookie-consent');
+      if (old === 'all') {
+        document.getElementById('toggle-analytics').checked = true;
+        document.getElementById('toggle-marketing').checked = true;
+        updateLabels();
+      }
+    }
+  })();
+
+  function updateLabels() {
+    const analytics = document.getElementById('toggle-analytics');
+    const marketing = document.getElementById('toggle-marketing');
+    document.getElementById('label-analytics').textContent = analytics.checked ? 'Aktiv' : 'Inaktiv';
+    document.getElementById('label-marketing').textContent = marketing.checked ? 'Aktiv' : 'Inaktiv';
+  }
+
+  document.getElementById('toggle-analytics').addEventListener('change', updateLabels);
+  document.getElementById('toggle-marketing').addEventListener('change', updateLabels);
+
+  function saveSettings() {
+    const prefs = {
+      essential: true,
+      analytics: document.getElementById('toggle-analytics').checked,
+      marketing: document.getElementById('toggle-marketing').checked
+    };
+    localStorage.setItem('cookie-consent-detail', JSON.stringify(prefs));
+    localStorage.setItem('cookie-consent', prefs.analytics && prefs.marketing ? 'all' : 'custom');
+    showConfirm();
+  }
+
+  function acceptAll() {
+    document.getElementById('toggle-analytics').checked = true;
+    document.getElementById('toggle-marketing').checked = true;
+    updateLabels();
+    saveSettings();
+  }
+
+  function showConfirm() {
+    const el = document.getElementById('save-confirm');
+    el.classList.add('visible');
+    setTimeout(() => el.classList.remove('visible'), 2500);
+  }
+
+  // ── Mobile Nav ──
+  const navToggle = document.querySelector('.nav-toggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileClose = document.querySelector('.mobile-close');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+
+  function openMobileNav() {
+    document.body.classList.add('mobile-nav-open');
+    mobileNav.hidden = false;
+    navToggle?.setAttribute('aria-expanded', 'true');
+    mobileClose?.focus();
+  }
+  function closeMobileNav() {
+    document.body.classList.remove('mobile-nav-open');
+    mobileNav.hidden = true;
+    navToggle?.setAttribute('aria-expanded', 'false');
+    navToggle?.focus();
+  }
+
+  navToggle?.addEventListener('click', () => {
+    document.body.classList.contains('mobile-nav-open') ? closeMobileNav() : openMobileNav();
+  });
+  mobileClose?.addEventListener('click', closeMobileNav);
+  mobileNavLinks.forEach(a => a.addEventListener('click', closeMobileNav));
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('mobile-nav-open')) closeMobileNav();
+  });
+</script>
 </body>
 </html>
