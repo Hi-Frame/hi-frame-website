@@ -254,12 +254,19 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       min-height: 280px;
+      background: var(--off-white);
+      border: 0.5px solid var(--light-border);
+      border-radius: 4px;
+      overflow: hidden;
+      padding: 12px;
+      gap: 8px;
     }
 
     .project-media--multi > * {
       position: relative;
       overflow: hidden;
-      min-height: 280px;
+      min-height: 260px;
+      border-radius: 2px;
     }
 
     .project-media--multi button[data-full] {
