@@ -249,6 +249,47 @@
       background: #000;
     }
 
+    /* ── Multi-media tile (mehrere Bilder/Video nebeneinander in einer Kachel) ── */
+    .project-media--multi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      min-height: 280px;
+    }
+
+    .project-media--multi > * {
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .project-media--multi button[data-full] {
+      all: unset;
+      display: block;
+      cursor: zoom-in;
+      width: 100%;
+      height: 100%;
+    }
+
+    .project-media--multi button[data-full] img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.98);
+    }
+
+    .project-media--multi .project-media--video-cell {
+      background: #000;
+    }
+
+    .project-media--multi .project-media--video-cell video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
     .project-media--video video {
       width: 100%;
       height: 100%;
@@ -266,7 +307,7 @@
       transition: opacity 0.2s ease;
     }
 
-    .project-media--video.is-playing .video-overlay {
+    .project-media.is-playing .video-overlay {
       opacity: 0;
       pointer-events: none;
     }
@@ -596,6 +637,44 @@
       </header>
 
       <section class="projects" aria-label="Projektübersicht">
+        <article class="project">
+          <div class="project-media project-media--multi" data-video-wrap>
+            <button type="button" data-full="assets/05-teilzeit-1.jpg" data-title="Stellenanzeige Teilzeitkraft" aria-label="Stellenanzeige Teilzeitkraft groß anzeigen">
+              <img src="assets/05-teilzeit-1.jpg" alt="Stellenanzeige Teilzeitkraft – Variante 1">
+            </button>
+            <button type="button" data-full="assets/05-teilzeit-2.jpg" data-title="Stellenanzeige Social Media" aria-label="Stellenanzeige Social Media groß anzeigen">
+              <img src="assets/05-teilzeit-2.jpg" alt="Stellenanzeige Social Media – Variante 2">
+            </button>
+            <div class="project-media--video-cell">
+              <video preload="metadata" playsinline>
+                <source src="assets/05-teilzeit-video.mp4" type="video/mp4">
+              </video>
+              <div class="video-overlay" aria-hidden="false">
+                <button class="video-play" type="button" data-video-play aria-label="Video abspielen">
+                  <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                    <path d="M22 18v28l28-14-28-14z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="project-meta">
+            <h2>AUFGABE / LEISTUNG</h2>
+            <div class="meta-block">
+              <div class="meta-label">Aufgabe</div>
+              <div class="meta-text">Stellenanzeige für Social Media (Instagram). Statisch und animiert.</div>
+            </div>
+            <div class="meta-block">
+              <div class="meta-label">Leistung</div>
+              <ul class="meta-list">
+                <li>Design</li>
+                <li>Layout</li>
+                <li>Animation</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
         <article class="project">
           <div class="project-media">
             <button type="button" data-full="assets/01.png" data-title="Projekt 01" aria-label="Projekt 01 groß anzeigen">
